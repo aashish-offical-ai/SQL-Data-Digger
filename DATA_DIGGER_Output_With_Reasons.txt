@@ -1,0 +1,698 @@
+DATA DIGGER – OUTPUT + REASON
+================================
+
+This document is prepared from the provided DATA_DIGGER.SQL file and the
+questions shown in the screenshots.
+
+IMPORTANT:
+The SQL file has some differences from the question sheet. These are
+mentioned clearly in the relevant sections below.
+
+
+============================================================
+1. CUSTOMERS TABLE
+============================================================
+
+QUESTION 1:
+Insert at least 5 sample customers into the Customers table.
+
+QUERY USED:
+INSERT INTO Customers
+(CustomerID, Name, Email, Address)
+VALUES
+(1, 'Aashish', 'aashish@gmail.com', 'Mumbai'),
+(2, 'Rahul', 'rahul@gmail.com', 'Surat'),
+(3, 'Priya', 'priya@gmail.com', 'Ahmedabad'),
+(4, 'Yash', 'yash@gmail.com', 'Delhi'),
+(5, 'Daksh', 'daksh@gmail.com', 'Pune');
+
+
+OUTPUT:
+
++------------+---------+--------------------+-----------+
+| CustomerID | Name    | Email              | Address   |
++------------+---------+--------------------+-----------+
+| 1          | Aashish | aashish@gmail.com   | Mumbai    |
+| 2          | Rahul   | rahul@gmail.com     | Surat     |
+| 3          | Priya   | priya@gmail.com     | Ahmedabad |
+| 4          | Yash    | yash@gmail.com      | Delhi     |
+| 5          | Daksh   | daksh@gmail.com     | Pune      |
++------------+---------+--------------------+-----------+
+
+REASON:
+
+5 sample customers successfully insert kiye gaye hain.
+CustomerID primary key hai, isliye har customer ka ID unique hai.
+
+
+------------------------------------------------------------
+QUESTION 2:
+Retrieve all customer details.
+------------------------------------------------------------
+
+OUTPUT:
+
++------------+---------+--------------------+-----------+
+| CustomerID | Name    | Email              | Address   |
++------------+---------+--------------------+-----------+
+| 1          | Aashish | aashish@gmail.com   | Mumbai    |
+| 2          | Rahul   | rahul@gmail.com     | Surat     |
+| 3          | Priya   | priya@gmail.com     | Ahmedabad |
+| 4          | Yash    | yash@gmail.com      | Delhi     |
+| 5          | Daksh   | daksh@gmail.com     | Pune      |
++------------+---------+--------------------+-----------+
+
+REASON:
+
+SELECT * FROM Customers;
+ka matlab Customers table ke saare columns aur saare records retrieve
+karna hai.
+
+
+------------------------------------------------------------
+QUESTION 3:
+Update a customer's address.
+------------------------------------------------------------
+
+QUERY:
+UPDATE Customers
+SET Address = 'Vadodara'
+WHERE CustomerID = 2;
+
+
+OUTPUT:
+
++------------+-------+------------------+----------+
+| CustomerID | Name  | Email            | Address  |
++------------+-------+------------------+----------+
+| 2          | Rahul | rahul@gmail.com  | Vadodara |
++------------+-------+------------------+----------+
+
+REASON:
+
+CustomerID 2 ke customer ka old address Surat tha.
+UPDATE query ke through us address ko Vadodara kar diya gaya.
+
+
+------------------------------------------------------------
+QUESTION 4:
+Delete a customer using their CustomerID.
+------------------------------------------------------------
+
+QUERY:
+DELETE FROM Customers
+WHERE CustomerID = 5;
+
+
+OUTPUT:
+
+CustomerID 5 (Daksh) delete ho gaya.
+
+FINAL CUSTOMERS AFTER DELETE:
+
++------------+---------+--------------------+-----------+
+| CustomerID | Name    | Email              | Address   |
++------------+---------+--------------------+-----------+
+| 1          | Aashish | aashish@gmail.com   | Mumbai    |
+| 2          | Rahul   | rahul@gmail.com     | Vadodara  |
+| 3          | Priya   | priya@gmail.com     | Ahmedabad |
+| 4          | Yash    | yash@gmail.com      | Delhi     |
++------------+---------+--------------------+-----------+
+
+REASON:
+
+WHERE CustomerID = 5 ki wajah se sirf Daksh ka record delete hua.
+
+
+------------------------------------------------------------
+QUESTION 5:
+Display all customers whose name is 'Alice'.
+------------------------------------------------------------
+
+QUESTION SHEET:
+Name = 'Alice'
+
+SQL FILE:
+WHERE Name = 'Aashish';
+
+OUTPUT OF CURRENT SQL:
+
++------------+---------+-------------------+---------+
+| CustomerID | Name    | Email             | Address |
++------------+---------+-------------------+---------+
+| 1          | Aashish | aashish@gmail.com  | Mumbai  |
++------------+---------+-------------------+---------+
+
+REASON:
+
+SQL file mein Aashish naam ka customer search kiya gaya hai.
+
+IMPORTANT MISMATCH:
+
+Question sheet mein 'Alice' diya hua hai, lekin SQL file mein 'Aashish'
+use kiya gaya hai.
+
+Agar exact question follow karna hai, query honi chahiye:
+
+SELECT *
+FROM Customers
+WHERE Name = 'Alice';
+
+Lekin current sample data mein Alice naam ka customer insert nahi hai,
+isliye exact query ka result 0 rows hoga.
+
+
+============================================================
+2. ORDERS TABLE
+============================================================
+
+QUESTION 1:
+Insert at least 5 sample orders into the Orders table.
+
+OUTPUT:
+
++---------+------------+------------+-------------+
+| OrderID | CustomerID | OrderDate  | TotalAmount |
++---------+------------+------------+-------------+
+| 101     | 1          | 2026-09-25 | 1500.00     |
+| 102     | 2          | 2026-09-20 | 2200.00     |
+| 103     | 3          | 2026-09-15 | 800.00      |
+| 104     | 1          | 2026-09-10 | 1200.00     |
+| 105     | 4          | 2026-08-10 | 2500.00     |
++---------+------------+------------+-------------+
+
+REASON:
+
+5 sample orders insert kiye gaye hain.
+CustomerID foreign key hai, isliye Orders table ka CustomerID
+Customers table ke CustomerID se linked hai.
+
+
+------------------------------------------------------------
+QUESTION 2:
+Retrieve all orders made by a specific customer.
+------------------------------------------------------------
+
+QUERY:
+SELECT *
+FROM Orders
+WHERE CustomerID = 1;
+
+OUTPUT:
+
++---------+------------+------------+-------------+
+| OrderID | CustomerID | OrderDate  | TotalAmount |
++---------+------------+------------+-------------+
+| 101     | 1          | 2026-09-25 | 1500.00     |
+| 104     | 1          | 2026-09-10 | 1200.00     |
++---------+------------+------------+-------------+
+
+REASON:
+
+CustomerID = 1 ke saare orders retrieve kiye gaye hain.
+Customer 1 ke do orders hain: 101 aur 104.
+
+
+------------------------------------------------------------
+QUESTION 3:
+Update an order's total amount.
+------------------------------------------------------------
+
+QUERY:
+UPDATE Orders
+SET TotalAmount = 1600.00
+WHERE OrderID = 101;
+
+OUTPUT:
+
++---------+------------+------------+-------------+
+| OrderID | CustomerID | OrderDate  | TotalAmount |
++---------+------------+------------+-------------+
+| 101     | 1          | 2026-09-25 | 1600.00     |
++---------+------------+------------+-------------+
+
+REASON:
+
+OrderID 101 ka old amount 1500.00 tha.
+UPDATE ke baad amount 1600.00 ho gaya.
+
+
+------------------------------------------------------------
+QUESTION 4:
+Delete an order using its OrderID.
+------------------------------------------------------------
+
+QUERY:
+DELETE FROM Orders
+WHERE OrderID = 105;
+
+OUTPUT:
+
+OrderID 105 delete ho gaya.
+
+FINAL ORDERS:
+
++---------+------------+------------+-------------+
+| OrderID | CustomerID | OrderDate  | TotalAmount |
++---------+------------+------------+-------------+
+| 101     | 1          | 2026-09-25 | 1600.00     |
+| 102     | 2          | 2026-09-20 | 2200.00     |
+| 103     | 3          | 2026-09-15 | 800.00      |
+| 104     | 1          | 2026-09-10 | 1200.00     |
++---------+------------+------------+-------------+
+
+REASON:
+
+WHERE OrderID = 105 ki wajah se sirf order 105 delete hua.
+
+
+------------------------------------------------------------
+QUESTION 5:
+Retrieve orders placed in the last 30 days.
+------------------------------------------------------------
+
+QUERY:
+SELECT *
+FROM Orders
+WHERE OrderDate >= CURRENT_DATE - INTERVAL 30 DAY;
+
+ASSUMING CURRENT DATE = 2026-09-30
+
+30 days ka cutoff approximately 2026-08-31 hai.
+
+OUTPUT:
+
++---------+------------+------------+-------------+
+| OrderID | CustomerID | OrderDate  | TotalAmount |
++---------+------------+------------+-------------+
+| 101     | 1          | 2026-09-25 | 1600.00     |
+| 102     | 2          | 2026-09-20 | 2200.00     |
+| 103     | 3          | 2026-09-15 | 800.00      |
+| 104     | 1          | 2026-09-10 | 1200.00     |
++---------+------------+------------+-------------+
+
+REASON:
+
+In orders ki date last 30 days ke andar hai.
+Order 105 ki date 2026-08-10 hai, isliye woh 30-day result mein nahi aata.
+
+
+------------------------------------------------------------
+QUESTION 6:
+Retrieve the highest, lowest, and average order amount using
+aggregate functions.
+------------------------------------------------------------
+
+QUERY:
+MAX(TotalAmount)
+MIN(TotalAmount)
+AVG(TotalAmount)
+
+OUTPUT:
+
++----------------------+---------------------+----------------------+
+| Highest_Order_Amount | Lowest_Order_Amount  | Average_Order_Amount |
++----------------------+---------------------+----------------------+
+| 2200.00              | 800.00              | 1450.00              |
++----------------------+---------------------+----------------------+
+
+REASON:
+
+Final Orders table mein amounts hain:
+
+1600 + 2200 + 800 + 1200 = 5800
+
+Average:
+5800 / 4 = 1450.00
+
+MAX() highest amount deta hai = 2200.00
+MIN() lowest amount deta hai = 800.00
+AVG() average amount deta hai = 1450.00
+
+
+============================================================
+3. PRODUCTS TABLE
+============================================================
+
+QUESTION 1:
+Insert at least 5 sample products.
+
+OUTPUT:
+
++-----------+-------------+----------+-------+
+| ProductID | ProductName | Price    | Stock |
++-----------+-------------+----------+-------+
+| 201       | Laptop      | 55000.00 | 10    |
+| 202       | Smartphone  | 25000.00 | 20    |
+| 203       | Headphones  | 1500.00  | 0     |
+| 204       | Keyboard    | 1200.00  | 15    |
+| 205       | Mouse       | 800.00   | 25    |
++-----------+-------------+----------+-------+
+
+REASON:
+
+5 sample products insert kiye gaye hain.
+Har product ka ProductID unique primary key hai.
+
+
+------------------------------------------------------------
+QUESTION 2:
+Retrieve all products sorted by price in descending order.
+------------------------------------------------------------
+
+OUTPUT:
+
++-----------+-------------+----------+-------+
+| ProductID | ProductName | Price    | Stock |
++-----------+-------------+----------+-------+
+| 201       | Laptop      | 55000.00 | 10    |
+| 202       | Smartphone  | 25000.00 | 20    |
+| 203       | Headphones  | 1500.00  | 0     |
+| 204       | Keyboard    | 1200.00  | 15    |
+| 205       | Mouse       | 800.00   | 25    |
++-----------+-------------+----------+-------+
+
+REASON:
+
+ORDER BY Price DESC ka matlab highest price se lowest price tak
+products show karna hai.
+
+
+------------------------------------------------------------
+QUESTION 3:
+Update the price of a specific product.
+------------------------------------------------------------
+
+QUERY:
+UPDATE Products
+SET Price = 27000.00
+WHERE ProductID = 202;
+
+OUTPUT:
+
++-----------+-------------+----------+-------+
+| ProductID | ProductName | Price    | Stock |
++-----------+-------------+----------+-------+
+| 202       | Smartphone  | 27000.00 | 20    |
++-----------+-------------+----------+-------+
+
+REASON:
+
+Smartphone ka old price 25000.00 tha.
+UPDATE ke baad new price 27000.00 ho gaya.
+
+
+------------------------------------------------------------
+QUESTION 4:
+Delete a product if it is out of stock.
+------------------------------------------------------------
+
+QUERY:
+DELETE FROM Products
+WHERE ProductID = 203
+AND Stock = 0;
+
+OUTPUT:
+
+ProductID 203 (Headphones) delete ho gaya.
+
+FINAL PRODUCTS:
+
++-----------+-------------+----------+-------+
+| ProductID | ProductName | Price    | Stock |
++-----------+-------------+----------+-------+
+| 201       | Laptop      | 55000.00 | 10    |
+| 202       | Smartphone  | 27000.00 | 20    |
+| 204       | Keyboard    | 1200.00  | 15    |
+| 205       | Mouse       | 800.00   | 25    |
++-----------+-------------+----------+-------+
+
+REASON:
+
+ProductID 203 ka Stock = 0 tha, isliye condition satisfy hui aur
+Headphones delete ho gaya.
+
+
+------------------------------------------------------------
+QUESTION 5:
+Retrieve products whose price is between 500 and 2000.
+------------------------------------------------------------
+
+QUERY:
+WHERE Price BETWEEN 500 AND 2000;
+
+OUTPUT:
+
++-----------+-------------+---------+-------+
+| ProductID | ProductName | Price   | Stock |
++-----------+-------------+---------+-------+
+| 204       | Keyboard    | 1200.00 | 15    |
+| 205       | Mouse       | 800.00  | 25    |
++-----------+-------------+---------+-------+
+
+REASON:
+
+BETWEEN 500 AND 2000 ka matlab price 500 se 2000 ke beech,
+including 500 and 2000.
+
+Keyboard = 1200
+Mouse = 800
+
+Dono range ke andar hain.
+
+
+------------------------------------------------------------
+QUESTION 6:
+Retrieve the most expensive and cheapest product using MAX() and MIN().
+------------------------------------------------------------
+
+OUTPUT:
+
++----------------------------+-----------------------+
+| Most_Expensive_Product_Price | Cheapest_Product_Price |
++----------------------------+-----------------------+
+| 55000.00                   | 800.00                |
++----------------------------+-----------------------+
+
+REASON:
+
+MAX(Price) highest product price find karta hai:
+55000.00 = Laptop
+
+MIN(Price) lowest product price find karta hai:
+800.00 = Mouse
+
+NOTE:
+Current SQL query sirf prices return karti hai, product names nahi.
+
+
+============================================================
+4. ORDERDETAILS TABLE
+============================================================
+
+QUESTION 1:
+Insert at least 5 sample records into OrderDetails.
+
+OUTPUT:
+
++---------------+---------+-----------+----------+----------+
+| OrderDetailID | OrderID | ProductID | Quantity | SubTotal |
++---------------+---------+-----------+----------+----------+
+| 301           | 101     | 201       | 1        | 55000.00 |
+| 302           | 101     | 204       | 2        | 2400.00  |
+| 303           | 102     | 202       | 1        | 25000.00 |
+| 304           | 103     | 205       | 3        | 2400.00  |
+| 305           | 104     | 204       | 1        | 1200.00  |
++---------------+---------+-----------+----------+----------+
+
+REASON:
+
+5 sample order-detail records insert kiye gaye hain.
+
+OrderID aur ProductID foreign keys hain, isliye ye Orders aur Products
+tables ke records se linked hain.
+
+
+------------------------------------------------------------
+QUESTION 2:
+Retrieve all order details for a specific order.
+------------------------------------------------------------
+
+QUERY:
+SELECT *
+FROM OrderDetails
+WHERE OrderID = 101;
+
+OUTPUT:
+
++---------------+---------+-----------+----------+----------+
+| OrderDetailID | OrderID | ProductID | Quantity | SubTotal |
++---------------+---------+-----------+----------+----------+
+| 301           | 101     | 201       | 1        | 55000.00 |
+| 302           | 101     | 204       | 2        | 2400.00  |
++---------------+---------+-----------+----------+----------+
+
+REASON:
+
+OrderID = 101 ke saare order-detail records retrieve kiye gaye hain.
+
+Order 101 mein:
+Laptop = 1
+Keyboard = 2
+
+
+------------------------------------------------------------
+QUESTION 3:
+Calculate the total revenue generated from all orders using SUM().
+------------------------------------------------------------
+
+QUERY:
+SELECT SUM(SubTotal) AS Total_Revenue
+FROM OrderDetails;
+
+OUTPUT:
+
++--------------+
+| Total_Revenue |
++--------------+
+| 86000.00     |
++--------------+
+
+REASON:
+
+Total revenue:
+
+55000
++ 2400
++ 25000
++ 2400
++ 1200
+= 86000
+
+SUM() sabhi SubTotal values ko add karta hai.
+
+
+------------------------------------------------------------
+QUESTION 4:
+Retrieve the top 3 most ordered products.
+------------------------------------------------------------
+
+QUERY:
+SELECT
+    ProductID,
+    SUM(Quantity) AS Total_Quantity_Sold
+FROM OrderDetails
+GROUP BY ProductID
+ORDER BY Total_Quantity_Sold DESC
+LIMIT 3;
+
+OUTPUT:
+
++-----------+--------------------+
+| ProductID | Total_Quantity_Sold|
++-----------+--------------------+
+| 204       | 3                  |
+| 205       | 3                  |
+| 201/202   | 1                  |
++-----------+--------------------+
+
+REASON:
+
+Product 204:
+2 + 1 = 3 units sold
+
+Product 205:
+3 units sold
+
+Product 201:
+1 unit sold
+
+Product 202:
+1 unit sold
+
+LIMIT 3 ki wajah se sirf 3 products show honge.
+
+IMPORTANT:
+Product 201 aur 202 dono ki quantity 1 hai, isliye tie hai.
+ORDER BY mein tie-breaker nahi diya gaya hai. MySQL kisi ek ko
+third position par return kar sakta hai.
+
+Agar fixed result chahiye, query mein ProductID ko secondary sorting
+ke liye add kar sakte hain.
+
+
+------------------------------------------------------------
+QUESTION 5:
+Count how many times a specific product has been sold using COUNT().
+------------------------------------------------------------
+
+QUERY:
+SELECT
+    ProductID,
+    COUNT(*) AS Times_Sold
+FROM OrderDetails
+WHERE ProductID = 204
+GROUP BY ProductID;
+
+OUTPUT:
+
++-----------+------------+
+| ProductID | Times_Sold |
++-----------+------------+
+| 204       | 2          |
++-----------+------------+
+
+REASON:
+
+ProductID 204 do order-detail records mein appear hota hai:
+
+OrderDetailID 302
+OrderDetailID 305
+
+Isliye COUNT(*) = 2.
+
+IMPORTANT:
+Yahan "times sold" ka meaning COUNT of order-detail records hai.
+
+Agar total units sold chahiye, to SUM(Quantity) use hoga:
+
+Product 204 ki total quantity:
+2 + 1 = 3 units.
+
+
+============================================================
+FINAL SUMMARY
+============================================================
+
+CUSTOMERS:
+- 5 customers insert kiye gaye.
+- Rahul ka address Surat se Vadodara update hua.
+- Daksh (CustomerID 5) delete hua.
+- Current SQL mein Aashish search kiya gaya hai, jabki question sheet
+  mein Alice diya hai.
+
+ORDERS:
+- 5 orders insert kiye gaye.
+- CustomerID 1 ke orders 101 aur 104 hain.
+- Order 101 ka amount 1500 se 1600 hua.
+- Order 105 delete hua.
+- Last 30 days mein current dataset ke 4 orders hain.
+- Highest order = 2200.00
+- Lowest order = 800.00
+- Average order = 1450.00
+
+PRODUCTS:
+- 5 products insert kiye gaye.
+- Products price descending order mein display kiye gaye.
+- Smartphone price 25000 se 27000 hua.
+- Out-of-stock Headphones delete hua.
+- 500–2000 range mein Keyboard aur Mouse aaye.
+- Highest price = 55000.00
+- Lowest price = 800.00
+
+ORDERDETAILS:
+- 5 records insert kiye gaye.
+- Order 101 ke 2 details hain.
+- Total revenue = 86000.00
+- Top ordered quantities mein Product 204 aur 205 ke 3-3 units hain.
+- Product 204 COUNT(*) ke according 2 order-detail records mein sold hua.
